@@ -51,26 +51,47 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Material Design Imports
-import {
-  MatDialogModule,
-  MatGridListModule,
-  MatCardModule,
-  MatSnackBarModule,
-  MatInputModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatButtonModule,
-  MatIconModule,
-  MatRadioModule,
-  MatTooltipModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatListModule,
-  MatSelectModule,
-  MatAutocompleteModule,
-  MatProgressSpinnerModule,
-  MatExpansionModule} from '@angular/material/';
+// import {
+//   MatDialogModule,
+//   MatGridListModule,
+//   MatCardModule,
+//   MatSnackBarModule,
+//   MatInputModule,
+//   MatDatepickerModule,
+//   MatNativeDateModule,
+//   MatButtonModule,
+//   MatIconModule,
+//   MatRadioModule,
+//   MatTooltipModule,
+//   MatTableModule,
+//   MatPaginatorModule,
+//   MatSortModule,
+//   MatListModule,
+//   MatSelectModule,
+//   MatAutocompleteModule,
+//   MatProgressSpinnerModule,
+//   MatExpansionModule} from '@angular/material/';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
+
+
 
 
 

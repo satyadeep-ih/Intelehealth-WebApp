@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VisitService } from 'src/app/services/visit.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface VisitData {
   id: string;

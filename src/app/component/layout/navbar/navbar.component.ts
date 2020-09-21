@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../../change-password/change-password.component';
 import { EncounterService } from 'src/app/services/encounter.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

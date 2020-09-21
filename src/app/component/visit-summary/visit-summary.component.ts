@@ -3,8 +3,8 @@ import { VisitService } from '../../services/visit.service';
 import { Component, OnInit } from '@angular/core';
 import { EncounterService } from 'src/app/services/encounter.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import * as jspdf from 'jspdf';
 import * as domtoimage from 'dom-to-image';
 

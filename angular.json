@@ -29,7 +29,7 @@
             ],
             "scripts": [
               "node_modules/intro.js/intro.js"
-            ],
+            ]
           },
           "configurations": {
             "production": {
@@ -140,5 +140,8 @@
       }
     }
   },
-  "defaultProject": "intelehealth-ui"
+  "defaultProject": "intelehealth-ui",
+  "cli": {
+    "analytics": false
+  }
 }
