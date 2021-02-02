@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SignatureComponent } from './signature/signature.component';
 import { EditDetailsComponent } from './edit-details/edit-details.component';
 import { environment } from '../../../environments/environment';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 declare var getFromStorage: any;
 
 @Component({

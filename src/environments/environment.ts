@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  baseURL: 'https://afitesting.intelehealth.org/openmrs/ws/rest/v1',
-  baseURLCoreApp : 'https://afitesting.intelehealth.org/openmrs/coreapps/diagnoses',
-  baseURLLegacy: 'https://afitesting.intelehealth.org/openmrs',
+  baseURL: 'https://testing.intelehealth.org/openmrs/ws/rest/v1',
+  baseURLCoreApp : 'https://testing.intelehealth.org/openmrs/coreapps/diagnoses',
+  baseURLLegacy: 'https://testing.intelehealth.org/openmrs',
   mindmapURL: 'http://localhost:3004/api',
   // notificationURL: 'http://localhost:3004/notification'
 };
