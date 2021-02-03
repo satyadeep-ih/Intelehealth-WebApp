@@ -42,8 +42,11 @@
                         </tr>
                         <tr *ngIf= 'userDetails.roles[0].display != "Organizational: Nurse"'>
                             <th>Signature :</th>
-                            <td *ngIf='providerDetails.textOfSign' [style.font-family]="providerDetails.fontOfSign.value" style="font-size: 50px">{{providerDetails.textOfSign.value}}</td>
-                            <td *ngIf='!providerDetails.textOfSign || action === "add"'><button mat-raised-button color="primary" (click)="signature('add')">Signature</button></td>
+                            <div *ngIf="signatureImage?.value">
+                                <img style="width: 80%;min-width: 80px; border: 1px solid black; padding: 3px" [src]="signatureImage?.value" />
+                              </div>
+                            <!-- <td *ngIf='providerDetails.textOfSign' [style.font-family]="providerDetails.fontOfSign.value" style="font-size: 50px">{{providerDetails.textOfSign.value}}</td>
+                            <td *ngIf='!providerDetails.textOfSign || action === "add"'><button mat-raised-button color="primary" (click)="signature('add')">Signature</button></td> -->
                         </tr>
                     </table>
                 </div>

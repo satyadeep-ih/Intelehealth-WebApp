@@ -7,6 +7,12 @@
     >clear</a
   >
 </h4>
+<div *ngIf="signatureImage?.value" class="col-sm-6 mx-auto">
+  <img
+    style="width: 80%; border: 1px solid black; padding: 3px"
+    [src]="signatureImage?.value"
+  />
+</div>
 <br />
 <form [formGroup]="addSignatureForm">
   <div class="form-group row">
@@ -20,7 +26,7 @@
         *ngIf="!isCropped"
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="true"
-        [aspectRatio]="4 / 3"
+        [aspectRatio]="6 / 3"
         format="jpeg"
         imageQuality="30"
         (imageCropped)="imageCropped($event)"
@@ -62,5 +68,12 @@
     {{ name }}</span
   >
   <br /> -->
-  <button mat-raised-button color="primary" (click)="submit()">Select</button>
+  <button
+    mat-raised-button
+    [disabled]="!croppedImage"
+    color="primary"
+    (click)="submit()"
+  >
+    Select
+  </button>
 </form>

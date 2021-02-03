@@ -1,5 +1,4 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { AuthService } from "src/app/services/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
@@ -7,7 +6,8 @@ import { EncounterService } from "src/app/services/encounter.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { environment } from "../../../../environments/environment";
 import { ImageCroppedEvent } from "ngx-image-cropper";
-import { DiagnosisService } from "src/app/services/diagnosis.service";
+import { ProviderService } from "src/app/services/provider.service";
+import { SessionService } from "src/app/services/session.service";
 declare var getFromStorage: any;
 
 @Component({
@@ -24,7 +24,6 @@ export class SignatureComponent implements OnInit {
   });
   status = false;
   name = "Enter text";
-  conceptSignature = "99b82e79-298e-400c-b552-949795ec1a7f";
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -32,7 +31,8 @@ export class SignatureComponent implements OnInit {
     private http: HttpClient,
     private snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<SignatureComponent>,
-    private diagnosisService: DiagnosisService
+    private provider: ProviderService,
+    private sessionService: SessionService
   ) {
     dialogRef.disableClose = true;
   }
@@ -139,48 +139,54 @@ export class SignatureComponent implements OnInit {
     this.isCropped = true;
   }
 
-  async submit() {
-    const fileBlob = await (await fetch(this.croppedImage)).blob();
-    const file = new File([fileBlob], `sign-${Date.now()}.jpg`, {
-      type: "image/jpg",
-    });
-    this.diagnosisService
-      .getObs(this.patientId, this.conceptSignature)
-      .subscribe((response) => {
-        if (response.results.length) {
-          console.log("response.results: ", response.results);
-        } else {
-          const concept = this.conceptSignature;
-          const person = this.patientId;
-          const obsDatetime = new Date().toISOString();
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append(
-            "json",
-            JSON.stringify({ concept, person, obsDatetime })
-          );
-          this.diagnosisService.createObs(formData).subscribe((res) => {
-            console.log("res: >>> >>> ", res);
-          });
-        }
-        // if (
-        //   obs.encounter !== null &&
-        //   obs.encounter.visit.uuid === visitUuid
-        // ) {
-        //   const data = {
-        //     image: `${this.baseURL}/obs/${obs.uuid}/value`,
-        //   };
-        //   this.images.push(data);
-        // }
+  submit() {
+    const payload = {
+      person: this.personId,
+      identifier: "doctor",
+      attributes: [
+        {
+          attributeType: this.signAttributeType,
+          value: this.croppedImage,
+        },
+      ],
+      retired: false,
+    };
+    if (this.provider.signatureProviderObject) {
+      this.provider
+        .deleteProvider(this.provider.signatureProviderObject["uuid"])
+        .subscribe();
+      this.provider.createProvider(payload).subscribe((res) => {
+        this.refreshProviders();
       });
+    } else {
+      this.provider.createProvider(payload).subscribe((res) => {
+        this.refreshProviders();
+      });
+    }
   }
 
-  get patientId() {
+  refreshProviders() {
+    const userDetails = getFromStorage("user");
+    this.sessionService.provider(userDetails.uuid).subscribe((provider) => {
+      this.provider.providerDetails = provider.results;
+      this.onClose();
+    });
+  }
+
+  get personId() {
     try {
       return JSON.parse(localStorage.user).person.uuid;
     } catch (error) {
       console.log("error: ", error);
       return null;
     }
+  }
+
+  get signAttributeType() {
+    return this.provider.signAttributeType;
+  }
+
+  get signatureImage() {
+    return this.provider.signatureImage;
   }
 }
