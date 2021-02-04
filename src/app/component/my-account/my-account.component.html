@@ -73,7 +73,7 @@
               <div
                 *ngIf="
                   signatureImage?.value &&
-                    ['undefined', 'unknown', 'null'].includes(
+                    !['undefined', 'unknown', 'null'].includes(
                       signatureImage?.value
                     );
                   else elseBlock
