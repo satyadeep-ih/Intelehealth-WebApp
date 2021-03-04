@@ -9,6 +9,7 @@ export const environment = {
     "https://afitesting.intelehealth.org/openmrs/coreapps/diagnoses",
   baseURLLegacy: "https://afitesting.intelehealth.org/openmrs",
   mindmapURL: "http://localhost:3004/api",
+  socketURL: "http://localhost:3004",
   // notificationURL: 'http://localhost:3004/notification'
 };
 

@@ -75,6 +75,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
+import { VcComponent } from "./component/vc/vc.component";
+import { SocketService } from "./services/socket.service";
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { environment } from "../environments/environment";
     TablesComponent,
     CurrentVisitComponent,
     ModalsComponent,
+    VcComponent,
   ],
 
   imports: [
@@ -184,6 +187,11 @@ import { environment } from "../environments/environment";
           component: VisitSummaryComponent,
           canActivate: [AuthGuard],
         },
+        {
+          path: "vc/emVlc2hhbg/:type",
+          component: VcComponent,
+          canActivate: [AuthGuard],
+        },
         { path: "", redirectTo: "home", pathMatch: "full" },
         { path: "**", component: Page404Component },
       ],
@@ -201,6 +209,7 @@ import { environment } from "../environments/environment";
     DatePipe,
     MatDatepickerModule,
     MatNativeDateModule,
+    SocketService,
     { provide: APP_BASE_HREF, useValue: "/" },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
