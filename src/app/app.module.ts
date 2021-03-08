@@ -117,6 +117,7 @@ import { SocketService } from "./services/socket.service";
 
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -188,9 +189,8 @@ import { SocketService } from "./services/socket.service";
           canActivate: [AuthGuard],
         },
         {
-          path: "vc/emVlc2hhbg/:type",
+          path: "vc/emVlc2hhbg/call",
           component: VcComponent,
-          canActivate: [AuthGuard],
         },
         { path: "", redirectTo: "home", pathMatch: "full" },
         { path: "**", component: Page404Component },
