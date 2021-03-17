@@ -24,10 +24,15 @@
               "src/manifest.webmanifest",
               "src/ngsw-worker.js",
               "src/ngsw.json",
-              "src/js/util.js"
+              "src/js/util.js",
+              "src/js/apprtc.js"
             ],
             "styles": ["src/styles.css", "node_modules/intro.js/introjs.css"],
-            "scripts": ["src/app/js/util.js", "node_modules/intro.js/intro.js"]
+            "scripts": [
+              "src/app/js/util.js",
+              "src/app/js/apprtc.js",
+              "node_modules/intro.js/intro.js"
+            ]
           },
           "configurations": {
             "production": {

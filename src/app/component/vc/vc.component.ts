@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SocketService } from "src/app/services/socket.service";
 import Peer from "simple-peer";
+import { environment } from "../../../environments/environment";
+declare var AppController: any;
 
 @Component({
   selector: "app-vc",
@@ -30,10 +32,35 @@ export class VcComponent implements OnInit {
 
   ngOnInit(): void {
     this.socketService.initSocket();
-    this.startUserMedia();
+    // this.startUserMedia();
     this.socketService.onEvent("myId").subscribe((id) => {
       this.myId = id;
       console.log(" this.myId: ", this.myId);
+    });
+
+    this.socketService.onEvent("join").subscribe((config) => {
+      console.log("config: ", config);
+      const loadingParams = {
+        errorMessages: config.error_messages ? config.error_messages : [],
+        warningMessages: config.warning_messages ? config.warning_messages : [],
+        isLoopback: config.is_loopback,
+        roomId: config.room_id,
+        roomLink: config.room_link,
+        mediaConstraints: config.media_constraints,
+        offerOptions: config.offer_options,
+        peerConnectionConfig: config.pc_config,
+        peerConnectionConstraints: config.pc_constraints,
+        iceServerRequestUrl: config.turn_url,
+        iceServerTransports: config.turn_transports,
+        wssUrl: config.wss_url,
+        wssPostUrl: config.wss_post_url,
+        bypassJoinConfirmation: config.bypass_join_confirmation,
+        versionInfo: config.version_info ? config.version_info : [],
+        roomServer: environment.socketURL,
+      };
+      console.log("environment.socketURL: ", environment.socketURL);
+      this.appRtc = new AppController(loadingParams);
+      console.log("this.appRtc: ", this.appRtc);
     });
 
     this.socketService.onEvent("hey").subscribe((data) => {
@@ -43,6 +70,7 @@ export class VcComponent implements OnInit {
       this.callerSignal = data.signal;
     });
   }
+  appRtc;
 
   get users() {
     return this.socketService.activeUsers;
