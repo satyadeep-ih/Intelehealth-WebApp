@@ -189,7 +189,7 @@ import { SocketService } from "./services/socket.service";
           canActivate: [AuthGuard],
         },
         {
-          path: "vc/emVlc2hhbg/call",
+          path: "vc/call",
           component: VcComponent,
         },
         { path: "", redirectTo: "home", pathMatch: "full" },

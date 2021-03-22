@@ -6145,7 +6145,7 @@ Call.prototype.maybeCreatePcClientAsync_ = function () {
         resolve();
         return;
       }
-      if (typeof RTCPeerConnection.generateCertificate === "function") {
+      if (false && typeof RTCPeerConnection.generateCertificate === "function") {
         var certParams = { name: "ECDSA", namedCurve: "P-256" };
         RTCPeerConnection.generateCertificate(certParams)
           .then(
@@ -6168,6 +6168,7 @@ Call.prototype.maybeCreatePcClientAsync_ = function () {
   );
 };
 Call.prototype.createPcClient_ = function () {
+  console.log('this.params_: >>>>>>>>>>>', this.params_);
   this.pcClient_ = new PeerConnectionClient(this.params_, this.startTime);
   this.pcClient_.onsignalingmessage = this.sendSignalingMessage_.bind(this);
   this.pcClient_.onremotehangup = this.onremotehangup;
@@ -6188,6 +6189,7 @@ Call.prototype.startSignaling_ = function () {
   this.maybeCreatePcClientAsync_()
     .then(
       function () {
+        console.log('this.localStream_: ', this.localStream_);
         if (this.localStream_) {
           trace("Adding local stream.");
           this.pcClient_.addStream(this.localStream_);
@@ -6229,11 +6231,12 @@ Call.prototype.joinRoom_ = function () {
               reject(Error("Registration error: " + responseObj.result));
               if (responseObj.result === "FULL") {
                 var getPath =
-                  this.roomServer_ +
-                  "/r/" +
-                  this.params_.roomId +
-                  window.location.search;
-                window.location.assign(getPath);
+                this.roomServer_ +
+                "/r/" +
+                this.params_.roomId +
+                window.location.search;
+                console.log('getPath: ', getPath);
+                // window.location.assign(getPath);
               }
               return;
             }
@@ -7824,7 +7827,7 @@ SignalingChannel.prototype.open = function () {
       if (isChromeApp()) {
         this.websocket_ = new RemoteWebSocket(this.wssUrl_, this.wssPostUrl_);
       } else {
-        this.websocket_ = new WebSocket(this.wssUrl_);
+        this.websocket_ = new WebSocket('ws://localhost:4200/ws');
       }
       this.websocket_.onopen = function () {
         trace("Signaling channel opened.");

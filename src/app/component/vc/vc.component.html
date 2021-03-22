@@ -1,4 +1,4 @@
-<!-- <h3>Username: {{ socketService?.socket?.id }}</h3>
+<h3>Username: {{ socketService?.socket?.id }}</h3>
 
 <div class="row">
   <div class="col-xs-12">
@@ -24,10 +24,16 @@
   </ul>
 </div>
 
+{{ roomId }}
+<br>
+<input type="text" name="roomId" [(ngModel)]="roomId" />
+
+<button (click)="join()" class="btn btn-primary">Join</button>
+
 <button *ngIf="incomingCall" (click)="acceptCall()" class="btn btn-primary">
   Accept
-</button> -->
-<body>
+</button>
+<!-- <body>
   <div id="videos">
     <video id="mini-video" autoplay playsinline muted></video>
     <video id="remote-video" autoplay playsinline></video>
@@ -37,11 +43,12 @@
     <p id="instructions">Please enter a room name.</p>
     <div>
       <div id="room-id-input-div">
-        <input type="text" id="room-id-input" autofocus/>
+        <input type="text" id="room-id-input" [(value)]="roomId" autofocus/>
         <label class="error-label hidden" for="room-id-input" id="room-id-input-label">Room name must be 5 or more characters and include only letters, numbers, underscore and hyphen.</label>
       </div>
       <div id="room-id-input-buttons">
         <button id="join-button">JOIN</button>
+        <button id="call-button" (click)="call(null)">Call</button>
         <button id="random-button">RANDOM</button>
       </div>
     </div>
@@ -58,7 +65,7 @@
     <div id="sharing-div">
       <div id="room-link">Waiting for someone to join this room: <a id="room-link-href" href="{{room_link}}" target="_blank">{{room_link}}</a></div>
     </div>
-    <div id="info-div">Code for Node AppRTC is available from <a href="http://github.com/webrtc/apprtc" title="GitHub repo for AppRTC">github.com/webrtc/apprtc</a></div>
+    <div id="info-div"></div>
     <div id="status-div"></div>
     <div id="rejoin-div" class="hidden"><span>You have left the call.</span> <button id="rejoin-button">REJOIN</button><button id="new-room-button">NEW ROOM</button></div>
   </footer>
@@ -92,57 +99,4 @@
       <path transform="scale(0.7), translate(11,10)" d="M24 18c-3.21 0-6.3.5-9.2 1.44v6.21c0 .79-.46 1.47-1.12 1.8-1.95.98-3.74 2.23-5.33 3.7-.36.35-.85.57-1.4.57-.55 0-1.05-.22-1.41-.59L.59 26.18c-.37-.37-.59-.87-.59-1.42 0-.55.22-1.05.59-1.42C6.68 17.55 14.93 14 24 14s17.32 3.55 23.41 9.34c.37.36.59.87.59 1.42 0 .55-.22 1.05-.59 1.41l-4.95 4.95c-.36.36-.86.59-1.41.59-.54 0-1.04-.22-1.4-.57-1.59-1.47-3.38-2.72-5.33-3.7-.66-.33-1.12-1.01-1.12-1.8v-6.21C30.3 18.5 27.21 18 24 18z" fill="white"/>
     </svg>
   </div>
-  <div id="privacy"></div>
-  <!-- <script src="/js/apprtc.debug.js"></script> -->
-  <!-- <script>
-    {{#if error_messages}}
-    var errorMessages = {{error_messages}};
-    {{else}}
-    var errorMessages = [];
-    {{/if}}
-    {{#if warning_messages}}
-    var warningMessages = {{warning_messages}};
-    {{else}}
-    var warningMessages = [];
-    {{/if}}
-    {{#if version_info}}
-    var versionInfo = {{version_info}};
-    {{else}}
-    var versionInfo = [];
-    {{/if}}
-    var loadingParams = {
-      errorMessages: errorMessages,
-      warningMessages: warningMessages,
-      isLoopback: {{is_loopback}},
-      {{#if room_id}}
-      roomId: '{{room_id}}',
-      roomLink: '{{room_link}}',
-      {{/if}}
-      mediaConstraints: {{{media_constraints}}},
-      offerOptions: {{{offer_options}}},
-      peerConnectionConfig: {{{pc_config}}},
-      peerConnectionConstraints: {{{pc_constraints}}},
-      iceServerRequestUrl: '{{turn_url}}',
-      iceServerTransports: '{{turn_transports}}',
-      wssUrl: '{{wss_url}}',
-      wssPostUrl: '{{wss_post_url}}',
-      bypassJoinConfirmation: {{bypass_join_confirmation}},
-      versionInfo: versionInfo
-    };
-    var appController;
-    function initialize() {
-      if (document.visibilityState === 'prerender') {
-        document.addEventListener('visibilitychange', onVisibilityChange);
-        return;
-      }
-      appController = new AppController(loadingParams);
-    }
-    function onVisibilityChange() {
-      if (document.visibilityState === 'prerender') {
-        return;
-      }
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-      initialize();
-    }
-    initialize();
-  </script> -->
+  <div id="privacy"></div> -->

@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import * as io from "socket.io-client";
@@ -14,7 +15,24 @@ export class SocketService {
   public activeUsers = [];
   private peerConnections: RTCPeerConnection[] = [];
 
-  constructor() {}
+  private baseURL = environment.socketURL;
+
+  constructor(private http: HttpClient) {}
+
+  join(roomId): Observable<any> {
+    const url = `${this.baseURL}/join/${roomId}`;
+    return this.http.post(url, {});
+  }
+
+  turn(): Observable<any> {
+    const url = `${this.baseURL}/turn`;
+    return this.http.post(url, {});
+  }
+
+  message(roomId, clientId, message): Observable<any> {
+    const url = `${this.baseURL}/message/${roomId}/${clientId}`;
+    return this.http.post(url, message);
+  }
 
   public initSocket() {
     this.socket = io(environment.socketURL, {

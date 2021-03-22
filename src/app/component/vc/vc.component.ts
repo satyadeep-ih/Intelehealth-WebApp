@@ -40,27 +40,27 @@ export class VcComponent implements OnInit {
 
     this.socketService.onEvent("join").subscribe((config) => {
       console.log("config: ", config);
-      const loadingParams = {
-        errorMessages: config.error_messages ? config.error_messages : [],
-        warningMessages: config.warning_messages ? config.warning_messages : [],
-        isLoopback: config.is_loopback,
-        roomId: config.room_id,
-        roomLink: config.room_link,
-        mediaConstraints: config.media_constraints,
-        offerOptions: config.offer_options,
-        peerConnectionConfig: config.pc_config,
-        peerConnectionConstraints: config.pc_constraints,
-        iceServerRequestUrl: config.turn_url,
-        iceServerTransports: config.turn_transports,
-        wssUrl: config.wss_url,
-        wssPostUrl: config.wss_post_url,
-        bypassJoinConfirmation: config.bypass_join_confirmation,
-        versionInfo: config.version_info ? config.version_info : [],
-        roomServer: environment.socketURL,
-      };
-      console.log("environment.socketURL: ", environment.socketURL);
-      this.appRtc = new AppController(loadingParams);
-      console.log("this.appRtc: ", this.appRtc);
+      // const loadingParams = {
+      //   errorMessages: config.error_messages ? config.error_messages : [],
+      //   warningMessages: config.warning_messages ? config.warning_messages : [],
+      //   isLoopback: config.is_loopback,
+      //   roomId: config.room_id,
+      //   roomLink: config.room_link,
+      //   mediaConstraints: config.media_constraints,
+      //   offerOptions: config.offer_options,
+      //   peerConnectionConfig: config.pc_config,
+      //   peerConnectionConstraints: config.pc_constraints,
+      //   iceServerRequestUrl: config.turn_url,
+      //   iceServerTransports: config.turn_transports,
+      //   wssUrl: config.wss_url,
+      //   wssPostUrl: config.wss_post_url,
+      //   bypassJoinConfirmation: config.bypass_join_confirmation,
+      //   versionInfo: config.version_info ? config.version_info : [],
+      //   roomServer: environment.socketURL,
+      // };
+      // console.log("environment.socketURL: ", environment.socketURL);
+      // this.appRtc = new AppController(loadingParams);
+      // console.log("this.appRtc: ", this.appRtc);
     });
 
     this.socketService.onEvent("hey").subscribe((data) => {
@@ -69,6 +69,20 @@ export class VcComponent implements OnInit {
       this.callerInfo = data.from;
       this.callerSignal = data.signal;
     });
+
+    this.socketService.onEvent("register").subscribe((data) => {
+      console.log("register:-->>>> ", data);
+    });
+
+    this.socketService.onEvent("send").subscribe((data) => {
+      console.log("send:<>>>>> ", data);
+    });
+
+    this.socketService.turn().subscribe((res) => {
+      const iceServers = JSON.parse(res).iceServers;
+      console.log("iceServers: ", iceServers);
+      this.iceServers = iceServers;
+    });
   }
   appRtc;
 
@@ -76,7 +90,7 @@ export class VcComponent implements OnInit {
     return this.socketService.activeUsers;
   }
   isStreamAvailable;
-  startUserMedia(config?: any): void {
+  startUserMedia(config?: any, cb = () => {}): void {
     let mediaConfig = {
       video: {
         width: { min: 1024, ideal: 1280, max: 1920 },
@@ -100,12 +114,70 @@ export class VcComponent implements OnInit {
       (stream: MediaStream) => {
         this.myStream = stream;
         this.localVideoRef.nativeElement.srcObject = this.myStream;
+        cb();
       },
       (err) => {
         this.isStreamAvailable = false;
         console.error(err);
       }
     );
+  }
+
+  roomId = "179441172";
+  params = null;
+  join() {
+    this.startUserMedia({ video: true }, () => {
+      console.log("->>>started");
+      this.socketService.join(this.roomId).subscribe((res) => {
+        if (res.result === "SUCCESS") {
+          this.params = res.params;
+          console.log("this.params: ", this.params);
+          this.appRtcCreatePeer();
+        } else {
+          console.log("connection already exists: ", this.params);
+        }
+      });
+    });
+  }
+  iceServers: [
+    // {
+  //   urls: ["turn:40.80.93.209:3478"];
+  //   username: "chat";
+  //   credential: "nochat";
+  // },
+  // {
+  //   urls: ["turn:numb.viagenie.ca"];
+  //   username: "sultan1640@gmail.com";
+  //   credential: "98376683";
+  // },
+  // { urls: ["stun:stun.l.google.com:19302"] },
+  // { urls: ["stun:stun1.l.google.com:19302"] }
+  ];
+  appRtcCreatePeer() {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      config: {
+        iceServers: this.iceServers,
+        stream: this.myStream,
+      },
+    });
+
+    peer.on("signal", (data) => {
+      console.log("signal: call ", data);
+      const message = JSON.stringify(data);
+      this.socketService
+        .message(this.roomId, this.params.client_id, message)
+        .subscribe((res) => {
+          console.log("res:message ", res);
+        });
+    });
+
+    peer.on("stream", (stream) => {
+      console.log("stream:from -> remotestream ", stream);
+      this.remoteVideoRef.nativeElement.srcObject = stream;
+      this.callerStream = stream;
+    });
   }
 
   call(userId): void {
@@ -119,11 +191,11 @@ export class VcComponent implements OnInit {
           //   username: "sultan1640@gmail.com",
           //   credential: "98376683",
           // },
-          // {
-          //   urls: "turn:numb.viagenie.ca",
-          //   username: "sultan1640@gmail.com",
-          //   credential: "98376683",
-          // },
+          {
+            urls: "turn:numb.viagenie.ca",
+            username: "sultan1640@gmail.com",
+            credential: "98376683",
+          },
           { urls: "stun:stun.l.google.com:19302" },
           { urls: "stun:stun1.l.google.com:19302" },
         ],
