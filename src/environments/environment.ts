@@ -10,7 +10,7 @@ export const environment = {
   baseURLLegacy: "https://afitesting.intelehealth.org/openmrs",
   mindmapURL: "http://localhost:3004/api",
   // socketURL: "http://localhost:3004",
-  socketURL: `${window.location.protocol}//${window.location.hostname}:3004`,
+  socketURL: `http://localhost:3004`,
   // notificationURL: 'http://localhost:3004/notification'
 };
 

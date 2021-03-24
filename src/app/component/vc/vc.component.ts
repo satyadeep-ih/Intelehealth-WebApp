@@ -32,7 +32,7 @@ export class VcComponent implements OnInit {
 
   ngOnInit(): void {
     this.socketService.initSocket();
-    // this.startUserMedia();
+    this.startUserMedia();
     this.socketService.onEvent("myId").subscribe((id) => {
       this.myId = id;
       console.log(" this.myId: ", this.myId);
@@ -63,26 +63,18 @@ export class VcComponent implements OnInit {
       // console.log("this.appRtc: ", this.appRtc);
     });
 
-    this.socketService.onEvent("hey").subscribe((data) => {
-      console.log("incomingCall:hey ", data);
-      this.incomingCall = true;
-      this.callerInfo = data.from;
-      this.callerSignal = data.signal;
-    });
+    // this.socketService.onEvent("hey").subscribe((data) => {
+    //   console.log("incomingCall:hey ", data);
+    //   this.incomingCall = true;
+    //   this.callerInfo = data.from;
+    //   this.callerSignal = data.signal;
+    // });
 
-    this.socketService.onEvent("register").subscribe((data) => {
-      console.log("register:-->>>> ", data);
-    });
-
-    this.socketService.onEvent("send").subscribe((data) => {
-      console.log("send:<>>>>> ", data);
-    });
-
-    this.socketService.turn().subscribe((res) => {
-      const iceServers = JSON.parse(res).iceServers;
-      console.log("iceServers: ", iceServers);
-      this.iceServers = iceServers;
-    });
+    // this.socketService.turn().subscribe((res) => {
+    //   const iceServers = JSON.parse(res).iceServers;
+    //   console.log("iceServers: ", iceServers);
+    //   this.iceServers = iceServers;
+    // });
   }
   appRtc;
 
@@ -96,7 +88,7 @@ export class VcComponent implements OnInit {
         width: { min: 1024, ideal: 1280, max: 1920 },
         height: { min: 576, ideal: 720, max: 1080 },
       },
-      audio: true,
+      audio: false,
     };
 
     if (config) {
@@ -123,7 +115,7 @@ export class VcComponent implements OnInit {
     );
   }
 
-  roomId = "179441172";
+  roomId = "12121215";
   params = null;
   join() {
     this.startUserMedia({ video: true }, () => {
@@ -153,8 +145,11 @@ export class VcComponent implements OnInit {
   // { urls: ["stun:stun.l.google.com:19302"] },
   // { urls: ["stun:stun1.l.google.com:19302"] }
   ];
+  peer = null;
   appRtcCreatePeer() {
-    const peer = new Peer({
+    this.startUserMedia();
+
+    this.peer = new Peer({
       initiator: true,
       trickle: false,
       config: {
@@ -163,9 +158,10 @@ export class VcComponent implements OnInit {
       },
     });
 
-    peer.on("signal", (data) => {
-      console.log("signal: call ", data);
+    this.peer.on("signal", (data) => {
+      console.log("signal: from remote ", data);
       const message = JSON.stringify(data);
+      this.peer.signal(message);
       this.socketService
         .message(this.roomId, this.params.client_id, message)
         .subscribe((res) => {
@@ -173,14 +169,26 @@ export class VcComponent implements OnInit {
         });
     });
 
-    peer.on("stream", (stream) => {
+    this.peer.on("stream", (stream) => {
       console.log("stream:from -> remotestream ", stream);
       this.remoteVideoRef.nativeElement.srcObject = stream;
       this.callerStream = stream;
     });
+
+    if (this.params.messages.length > 0) {
+      this.params.messages.forEach((msg) => {
+        const signal = JSON.parse(msg);
+        console.log("signal: to remote", signal);
+        this.peer.signal(signal);
+      });
+    }
   }
 
+  activeCallerId = null;
+  candidate = false;
   call(userId): void {
+    this.activeCallerId = userId;
+    console.log("this.activeCallerId: ", this.activeCallerId);
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -203,25 +211,53 @@ export class VcComponent implements OnInit {
       stream: this.myStream,
     });
 
+    this.socketService.onEvent("message").subscribe((data) => {
+      if (data.from === "app") {
+        console.log("message:-->>>> ", data);
+        if (data.type === "offer") {
+          const offer = {
+            type: data.type,
+            sdp: data.sdp,
+          };
+          peer.signal(offer);
+          this.candidate = false;
+        }
+        if (!this.candidate && data.type === "candidate") {
+          this.candidate = true;
+          console.log("message:candidate-->>>> ", data);
+          peer.signal(data);
+        }
+      }
+    });
+
     peer.on("signal", (data) => {
-      console.log("signal: call ", data);
-      this.socketService.emitEvent("callUser", {
+      console.log("signal: call from us ", data);
+      this.socketService.emitEvent("message", {
         signalData: data,
         from: this.myId,
         userToCall: userId,
+        to: this.activeCallerId,
       });
     });
 
-    peer.on("stream", (stream) => {
+    peer.on("connect", (data) => {
+      console.log("connect>>>>data: ", data);
+    });
+    peer.on("data", (data) => {
+      console.log("data:data>>>>> ", data);
+    });
+
+    peer.on("stream", (stream: MediaStream) => {
       console.log("stream:from -> remotestream ", stream);
-      this.remoteVideoRef.nativeElement.srcObject = stream;
+      // const remoteStream = new MediaStream();
+      // remoteStream.addTrack(stream.getVideoTracks()[0]);
       this.callerStream = stream;
     });
 
-    this.socketService.onEvent("callAccepted").subscribe((signal) => {
-      console.log("signal: ", signal);
-      peer.signal(signal);
-    });
+    // this.socketService.onEvent("callAccepted").subscribe((signal) => {
+    //   console.log("signal: ", signal);
+    //   peer.signal(signal);
+    // });
   }
 
   acceptCall(): void {
