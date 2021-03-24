@@ -1,11 +1,11 @@
 <h3>Username: {{ socketService?.socket?.id }}</h3>
 
 <div class="row">
-  <div class="col-xs-12">
-    <video #remoteVideo class="remoteVideo" autoplay controls></video>
-  </div>
-  <div class="col-xs-12">
+  <div class="col-xs-6">
     <video #localVideo autoplay controls class="localVideo"></video>
+  </div>
+  <div class="col-xs-6">
+    <video #remoteVideo class="remoteVideo" autoplay controls></video>
   </div>
 </div>
 <div class="row">
@@ -13,13 +13,13 @@
     <label>User socket</label>
     <li *ngFor="let user of users">
       {{ user }}{{ socketService.socket.id == user ? "(me)" : "" }}
-      <button
+      <!-- <button
         *ngIf="!playing && socketService.socket.id != user"
         (click)="call(user)"
         class="btn btn-primary"
       >
         Call
-      </button>
+      </button> -->
     </li>
   </ul>
 </div>
@@ -30,9 +30,9 @@
 
 <button (click)="join()" class="btn btn-primary">Join</button> -->
 
-<button *ngIf="incomingCall" (click)="acceptCall()" class="btn btn-primary">
+<!-- <button *ngIf="incomingCall" (click)="acceptCall()" class="btn btn-primary">
   Accept
-</button>
+</button> -->
 <!-- <body>
   <div id="videos">
     <video id="mini-video" autoplay playsinline muted></video>
