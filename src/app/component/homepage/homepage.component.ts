@@ -4,7 +4,7 @@ import { SessionService } from "./../../services/session.service";
 import { Component, OnInit } from "@angular/core";
 import { VisitService } from "src/app/services/visit.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-declare var getFromStorage: any, saveToStorage: any, deleteFromStorage: any;
+declare var getFromStorage: any, saveToStorage: any, deleteFromStorage: any, window:any;
 
 export interface VisitData {
   id: string;
@@ -42,7 +42,9 @@ export class HomepageComponent implements OnInit {
     private authService: AuthService,
     private service: VisitService,
     private snackbar: MatSnackBar
-  ) {}
+  ) {
+    this.loadScript();
+  }
 
   ngOnInit() {
     if (getFromStorage("visitNoteProvider")) {
@@ -67,9 +69,12 @@ export class HomepageComponent implements OnInit {
     } else {
       this.authService.logout();
     }
+    if(window && window.tiledesk) {
+      window.tiledesk.show();
+    }
   }
 
-  getVisits() {
+ getVisits() {
     this.service.getVisits().subscribe(
       (response) => {
         const visits = response.results;
@@ -158,5 +163,14 @@ export class HomepageComponent implements OnInit {
     )[1];
     this.value.lastSeen = active.encounters[0].encounterDatetime;
     return this.value;
+  }
+
+  loadScript() {
+    const script = document.createElement('script');
+    script.src =  'assets/tiledesk-chatbot.js';
+    script.type = 'text/javascript';
+    script.async = false;
+    document.getElementsByTagName('head')[0].appendChild(script);
+
   }
 }

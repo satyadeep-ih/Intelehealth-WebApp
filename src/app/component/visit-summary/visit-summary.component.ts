@@ -5,7 +5,7 @@ import { EncounterService } from 'src/app/services/encounter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
-declare var getFromStorage: any, saveToStorage: any, getEncounterProviderUUID: any;
+declare var getFromStorage: any, saveToStorage: any, getEncounterProviderUUID: any, window: any;
 
 @Component({
   selector: 'app-visit-summary',
@@ -34,6 +34,9 @@ constructor(private service: EncounterService,
             }
 
   ngOnInit() {
+    if(window && window.tiledesk) {
+      window.tiledesk.hide();
+    }
     setTimeout(() => {this.setSpiner = false; }, 1000);
     const visitUuid = this.route.snapshot.paramMap.get('visit_id');
     this.visitService.fetchVisitDetails(visitUuid)

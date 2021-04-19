@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
-declare var saveToStorage: any;
+declare var saveToStorage: any, window:any;
 
 @Component({
   selector: 'app-login-page',
@@ -29,6 +29,9 @@ export class LoginPageComponent implements OnInit {
     const isLoggedIn: boolean = this.authService.isLoggedIn();
     if (isLoggedIn) {
       this.router.navigateByUrl('/home');
+    }
+    if(window && window.tiledesk) {
+      window.tiledesk.hide();
     }
   }
 
