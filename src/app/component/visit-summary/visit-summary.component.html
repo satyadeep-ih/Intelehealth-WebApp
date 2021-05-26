@@ -112,23 +112,29 @@
         [disabled]="visitCompletePresent || isVisitSummaryChanged">Sign and Submit</button>
     </div>
     <br>
-    <div class="card" *ngIf="patientInfo != undefined ">
+    <div class="card" *ngIf="visitCompletePresent && patientInfo != undefined ">
       <div class="card-body">
         Ekal Arogya Helpline <br>
         Telemedicine Project
         e-prescription<br><br>
         <span>{{patientInfo.name}} </span><br>
         <span>Age:{{patientInfo.age}}</span>
-        <span> | Gender:{{patientInfo.gender}} </span><br>
+        <span> | Gender:{{patientInfo.gender}} </span><br><br>
         <span>Diagnosis:</span>
+        <p *ngIf ="patientInfo.diagnosisData?.diagnosisConcept.length == 0">- Not Provided</p>
         <p *ngFor="let diagno of patientInfo.diagnosisData?.diagnosisConcept">- {{diagno.value}}</p><br>
         <span>Medication:</span>
+        <p *ngIf ="patientInfo.diagnosisData?.medicationConcept.length == 0">- Not Provided</p>
         <p *ngFor="let diagno of patientInfo.diagnosisData?.medicationConcept">- {{diagno.value}}</p><br>
         <span>Recommended Investigation(s):</span>
-        <p *ngFor="let diagno of patientInfo.diagnosisData?.preTestConcept">- {{diagno.value}}</p><br>
+        <p *ngIf ="patientInfo.diagnosisData?.preTestConcept.length == 0">- Not Provided</p>
+        <p *ngFor="let diagno of patientInfo.diagnosisData?.preTestConcept">- {{diagno.value}}</p>
+        <br>
         <span>Advice:</span>
+        <p *ngIf ="patientInfo.diagnosisData?.advConcept.length == 0">- Not Provided</p>
         <p *ngFor="let diagno of patientInfo.diagnosisData?.advConcept">- {{diagno.value}}</p><br>
         <span>Follow Up Data:</span>
+        <p *ngIf ="patientInfo.diagnosisData?.followUpConcept.length == 0">- Not Provided</p>
         <p *ngFor="let diagno of patientInfo.diagnosisData?.followUpConcept">- {{diagno.value}}</p><br>
         {{patientInfo.providerName}}<br>
         <span>+911141236457</span>
