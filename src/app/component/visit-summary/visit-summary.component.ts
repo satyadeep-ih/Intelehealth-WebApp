@@ -31,6 +31,7 @@ export class VisitSummaryComponent implements OnInit {
   diagnosis: any = [];
   patientId: string;
   visitUuid: string;
+  patientInfo: any
   conceptIds = [
     "537bb20d-d09d-4f88-930b-cc45c7d662df",
     "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -63,17 +64,16 @@ export class VisitSummaryComponent implements OnInit {
   }
 
   ngOnInit() {
+
     setTimeout(() => {
       this.setSpiner = false;
     }, 1000);
-
     this.visitUuid = this.route.snapshot.paramMap.get("visit_id");
     this.patientId = this.route.snapshot.params["patient_id"];
     this.diagnosisService
       .getObsAll(this.patientId)
       .subscribe((response) => {
         const ObsData = response.results.filter(a => this.conceptIds.includes(a.concept.uuid))
-        console.log('ObsData: ', ObsData.length);
         if (ObsData.length > 0) {
           this.diagnosisService.isVisitSummaryChanged = true
         }
@@ -109,6 +109,38 @@ export class VisitSummaryComponent implements OnInit {
     return !this.diagnosisService.isVisitSummaryChanged;
   }
 
+
+  getInfo() {
+    const userDetails = getFromStorage("provider");
+    let providerNo = userDetails.attributes.find(a => a.attributeType.display == "phoneNumber")
+    this.visitService.patientInfo(this.patientId).subscribe((info) => {
+      this.patientInfo = {
+        "name": info.person.display,
+        "age": info.person.age,
+        "gender": info.person.gender,
+        "providerName": userDetails.person.display,
+      }
+    });
+
+    this.diagnosisService
+      .getObsAll(this.patientId)
+      .subscribe((response) => {
+        let currentVisit = response.results.filter(a=>a.encounter.visit.uuid == this.visitUuid)
+        let diagnosisConcept = currentVisit.filter(a => a.concept.uuid == "537bb20d-d09d-4f88-930b-cc45c7d662df")
+        let followUpConcept = currentVisit.filter(a => a.concept.uuid == "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86")
+        let advConcept = currentVisit.filter(a => a.concept.uuid == "67a050c1-35e5-451c-a4ab-fff9d57b0db1")
+        let preTestConcept = currentVisit.filter(a => a.concept.uuid == "23601d71-50e6-483f-968d-aeef3031346d")
+        advConcept.forEach((c,index) => {
+          if (c.value.includes("<a")) {
+            advConcept.splice(index,1);
+          }
+        });
+
+        let medicationConcept = response.results.filter(a => a.concept.uuid == "c38c0c50-2fd2-4ae3-b7ba-7dd25adca4ca")
+        this.patientInfo['diagnosisData'] = { diagnosisConcept, advConcept, followUpConcept, medicationConcept, preTestConcept }
+      });
+  }
+  
   onStartVisit() {
     const myDate = new Date(Date.now() - 30000);
     const patientUuid = this.route.snapshot.paramMap.get("patient_id");
@@ -136,6 +168,7 @@ export class VisitSummaryComponent implements OnInit {
             this.visitService
               .fetchVisitDetails(visitUuid)
               .subscribe((visitDetails) => {
+                console.log('visitDetails: ', visitDetails);
                 saveToStorage("visitNoteProvider", visitDetails.encounters[0]);
               });
             this.show = true;
@@ -178,10 +211,8 @@ export class VisitSummaryComponent implements OnInit {
     this.diagnosisService
       .getObsAll(this.patientId)
       .subscribe((response) => {
-        console.log('response: ', response);
         if (response) {
           this.signandsubmit();
-          // this.updateVisit();
         }
 
       });
@@ -245,8 +276,10 @@ export class VisitSummaryComponent implements OnInit {
               this.visitCompletePresent = true;
               this.snackbar.open("Visit Complete", null, { duration: 4000 });
             });
-
+            
+            this.getInfo();
             this.updateVisit();
+
 
           } else {
             if (
