@@ -23,6 +23,7 @@ export class VisitSummaryComponent implements OnInit {
   font: string;
   visitNotePresent = false;
   visitCompletePresent = false;
+  remotePrescriptionPresent = false;
   setSpiner = true;
   doctorDetails;
   doctorValue;
@@ -62,6 +63,10 @@ export class VisitSummaryComponent implements OnInit {
             saveToStorage("visitNoteProvider", visit);
             this.visitNotePresent = true;
             this.show = true;
+          }
+          if (visit.display.match("Remote Prescription") !== null) {
+             this.remotePrescriptionPresent = true;
+             this.show = true;
           }
           if (visit.display.match("Visit Complete") !== null) {
             this.visitCompletePresent = true;
@@ -172,7 +177,7 @@ export class VisitSummaryComponent implements OnInit {
             });
             const json = {
               patient: this.patientUuid,
-              encounterType: "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e",
+              encounterType: "a85f96d1-1246-4263-bfd0-00780c27a018",
               encounterProviders: [
                 {
                   provider: providerUuid,
@@ -181,17 +186,17 @@ export class VisitSummaryComponent implements OnInit {
               ],
               visit: this.visitUuid,
               encounterDatetime: myDate,
-              obs: [
-                {
-                  concept: "7a9cb7bc-9ab9-4ff0-ae82-7a1bd2cca93e",
-                  value: JSON.stringify(this.doctorValue),
-                },
-              ],
+              // obs: [
+              //   {
+              //     concept: "7a9cb7bc-9ab9-4ff0-ae82-7a1bd2cca93e",
+              //     value: JSON.stringify(this.doctorValue),
+              //   },
+              // ],
             };
             this.service.postEncounter(json).subscribe((post) => {
-              this.visitCompletePresent = true;
+              this.remotePrescriptionPresent = true;
               this.router.navigateByUrl("/home");
-              this.translationService.getTranslation("Visit Complete");
+              this.translationService.getTranslation("Prescription added for review");
             });
           } else {
             if (

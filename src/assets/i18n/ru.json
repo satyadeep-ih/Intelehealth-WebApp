@@ -110,6 +110,7 @@
     "you require by speaking with the patient directly.":" которая вам потребуется, напрямую поговорив с пациентом.",
     "Start Visit Note":"Записать примечание к посещению",
     "Sign and Submit":"Войти и отправить",
+    "Remote Prescription":"Удаленное назначение",
     "Notes":"Заметки",
     "Notes (not shared with the patient)":"Примечания (не передаются пациенту)",
     "Add Note":"Добавить заметку",
@@ -254,7 +255,8 @@
         "Another doctor is viewing this case":"Другой врач просматривает этот случай",
         "Your signature is not setup! If you click Ok you would be redirected. Cancel will load this website ":
         "Ваша подпись не настроена! Если вы нажмете «ОК», вы будете перенаправлены. Отмена загрузки веб-сайта",
-        "reassignedSuccessfully":"Пациент успешно переведен к {{value}}."
+        "reassignedSuccessfully":"Пациент успешно переведен к {{value}}.",
+        "Prescription added for review":"Рецепт добавлен на рассмотрение"
 },
     "helpMsg1":"Добро пожаловать на портал Доктора. Менее чем за 1 минуту мы покажем вам, как поставить диагноз, лекарства, анализы и посоветовать пациенту.",
     "helpMsg2":"Нажмите здесь, чтобы отредактировать свой профиль или изменить пароль",

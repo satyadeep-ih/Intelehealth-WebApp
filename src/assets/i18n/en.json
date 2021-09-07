@@ -110,6 +110,7 @@
     "you require by speaking with the patient directly.":"you require by speaking with the patient directly.",
     "Start Visit Note":"Start Visit Note",
     "Sign and Submit":"Sign and Submit",
+    "Remote Prescription":"Remote Prescription",
     "Notes":"Notes",
     "Notes (not shared with the patient)":"Notes (not shared with the patient)",
     "Add Note":"Add Note",
@@ -254,7 +255,8 @@
             "Another doctor is viewing this case":"Another doctor is viewing this case",
             "Your signature is not setup! If you click Ok you would be redirected. Cancel will load this website ":
             "Your signature is not setup! If you click Ok you would be redirected. Cancel will load this website ",
-            "reassignedSuccessfully":"Patient is reassigned to {{value}} successfully."
+            "reassignedSuccessfully":"Patient is reassigned to {{value}} successfully.",
+            "Prescription added for review":"Prescription added for review"
         },
     "helpMsg1":"Welcome to the Doctor portal. In less than 1 min, we will show you how to give diagnosis, medicines,test and advice to a patient.",
     "helpMsg2":"Click here to edit your profile or change your password.",
