@@ -26,17 +26,21 @@
     "@angular/service-worker": "~13.0.0-next.6",
     "@fingerprintjs/fingerprintjs": "^3.0.5",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@types/intro.js": "^2.4.7",
     "angular-user-idle": "^2.2.2",
     "core-js": "^2.5.4",
     "intro.js": "^2.9.3",
     "moment": "^2.24.0",
     "ngx-cookie-service": "^2.1.0",
+    "ngx-export-as": "^1.13.0",
     "ngx-spinner": "^10.0.1",
     "rxjs": "~6.6.2",
     "serialize-javascript": "^2.1.2",
-    "tslib": "^2.0.0",
     "socket.io-client": "^2.1.1",
+    "tslib": "^2.0.0",
+    "util": "^0.12.4",
     "webrtc-adapter": "^7.7.1",
     "zone.js": "~0.11.4"
   },
@@ -61,5 +65,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~6.1.3",
     "typescript": "~4.3.5"
-  }
+  },
+  "browser": {
+    "crypto": false
+}
 }

@@ -79,4 +79,14 @@ export class VisitService {
       `${environment.mindmapURL}/openmrs/getVisitCounts?speciality=${speciality}`
     );
   }
+
+  getVisitData(payload) {
+    return this.http.post(
+      `${this.baseURL.replace(
+        "/openmrs/ws/rest/v1",
+        ""
+      )}/prescription/prescription/visitData`,
+      payload
+    );
+  }
 }

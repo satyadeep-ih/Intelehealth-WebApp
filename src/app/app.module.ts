@@ -85,6 +85,7 @@ import { ReassignSpecialityComponent } from "./component/visit-summary/reassign-
 import { ConfirmDialogComponent } from "./component/visit-summary/reassign-speciality/confirm-dialog/confirm-dialog.component";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { PrescriptionComponent } from './component/prescription/prescription.component';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -130,7 +131,8 @@ export function TranslationLoaderFactory(http: HttpClient) {
     ChatComponent,
     TestChatComponent,
     ReassignSpecialityComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PrescriptionComponent
   ],
 
   imports: [
@@ -166,6 +168,10 @@ export function TranslationLoaderFactory(http: HttpClient) {
     }),
     RouterModule.forRoot([
       { path: 'login', component: LoginPageComponent },
+      {
+        path: "prescription/:patientId/:openMrsId",
+        component: PrescriptionComponent,
+      },
       {
         path: '', component: MainComponent, children: [{ path: 'home', component: HomepageComponent, canActivate: [AuthGuard] },
         { path: 'findPatient', component: FindPatientComponent, canActivate: [AuthGuard] },
