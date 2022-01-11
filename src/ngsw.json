@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1601382706646,
+  "timestamp": 1602584650771,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,16 +11,15 @@
         "ignoreVary": true
       },
       "urls": [
-        "/custom-service-worker.js",
         "/favicon.ico",
         "/index.html",
-        "/main.d65bfa5d9dbaa04d5b0b.js",
+        "/main.4b80b242d64c10cac35e.js",
         "/manifest.webmanifest",
-        "/polyfills-es5.2f68bc6afdc2207bf020.js",
-        "/polyfills.d59faa4c12de2ad27d24.js",
+        "/polyfills-es5.07ff13dbd1a831e8fef2.js",
+        "/polyfills.5e9247093e2fec1dc646.js",
         "/runtime.e227d1a0e31cbccbf8ec.js",
-        "/scripts.546ff3dfbc0a6005597b.js",
-        "/styles.0454ce20de168dc1cb6d.css"
+        "/scripts.a59561f20b72713f8a2a.js",
+        "/styles.b4cd9e8239b4b95cd403.css"
       ],
       "patterns": []
     },
@@ -60,7 +59,7 @@
   "dataGroups": [
     {
       "name": "api-performance",
-      "patterns": ["\\/assets\\/i18n\\/.*"],
+      "patterns": ["\\/assets\\/i18n\\/.*", "\\/api\\/.*"],
       "strategy": "performance",
       "maxSize": 100,
       "maxAge": 259200000,
@@ -71,7 +70,11 @@
     },
     {
       "name": "api-freshness",
-      "patterns": ["\\/openmrs\\/ws\\/rest\\/v1\\/visit"],
+      "patterns": [
+        "https:\\/\\/fonts\\.googleapis\\.com\\/.*",
+        "https:\\/\\/use\\.fontawesome\\.com\\/.*",
+        "\\/openmrs\\/ws\\/rest\\/v1\\/visit\\/.*"
+      ],
       "strategy": "freshness",
       "maxSize": 1000,
       "maxAge": 0,
@@ -104,16 +107,15 @@
     "/assets/images/Doctor-profile-page-background-without-blur.png": "3f98213112703b50506bbe670ede0eafe435b2ba",
     "/assets/images/Intelehealth-logo-white.png": "3351698d3fc04a7129fb25ab6ca60a35c9836ddc",
     "/assets/images/intelehealth-logo-reverse.png": "987e275cc5b32023455b4ce78793eaf75bef7f29",
-    "/custom-service-worker.js": "1f0751ffb7105b0cda76eed4a0bbf11390b84f03",
     "/favicon.ico": "9fde8e63c112120d53b5018f4512d753f5262f2c",
-    "/index.html": "6b4e907d9cf6d29ec6c67be21c847acc5e91c873",
-    "/main.d65bfa5d9dbaa04d5b0b.js": "c6bef3f75131d17e759bdf268110446afb7c7793",
-    "/manifest.webmanifest": "b6ea50edbbd956766bc99eecfc0d7af5e269f74e",
-    "/polyfills-es5.2f68bc6afdc2207bf020.js": "6350e1e104db8b06cb9e0c9e2c30f36cd9ef282f",
-    "/polyfills.d59faa4c12de2ad27d24.js": "cda35de091b9701140c4a2a08fa3cf8895601213",
+    "/index.html": "e7456148b5cd3c78932e5a3dd211e55c652d183d",
+    "/main.4b80b242d64c10cac35e.js": "a3da6622b68eb70984d6e2216a8d882fe0211a39",
+    "/manifest.webmanifest": "717df8e669caa0ef48173b2357588c8fece80463",
+    "/polyfills-es5.07ff13dbd1a831e8fef2.js": "ca8f71e6876dc75910efe32fde76bfc10463eba2",
+    "/polyfills.5e9247093e2fec1dc646.js": "691b30f396239de2011640448063d614620f8396",
     "/runtime.e227d1a0e31cbccbf8ec.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/scripts.546ff3dfbc0a6005597b.js": "78907ddec8c727b4db45a58875929bc546203ef9",
-    "/styles.0454ce20de168dc1cb6d.css": "a40e5272aede7607f9a906463539d67375b0592a"
+    "/scripts.a59561f20b72713f8a2a.js": "78907ddec8c727b4db45a58875929bc546203ef9",
+    "/styles.b4cd9e8239b4b95cd403.css": "65e7720b56e284c7efa4deeeb746e4880a67f404"
   },
   "navigationUrls": [
     {
