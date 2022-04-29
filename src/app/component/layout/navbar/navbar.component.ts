@@ -42,8 +42,8 @@ export class NavbarComponent implements OnInit {
    * Please change it as per server(production/training)
    */
   readonly VapidKEY =
-    "BHkKl1nW4sC_os9IRMGhrSZ4JJp0RHl2_PxTdV_rElOjnHe-dq1hx2zw_bTgrkc4ulFD-VD4x6P63qN1Giroe7U"; // afi ekal training
-  // "BO4jQA2_cu-WSdDY0HCbB9OKplPYpCRvjDwmjEPQd7K7m1bIrtjeW7FXCntUUkm2V0eAKh9AGKqmpR4-_gYSYX8" // afi ekal Production
+    // "BHkKl1nW4sC_os9IRMGhrSZ4JJp0RHl2_PxTdV_rElOjnHe-dq1hx2zw_bTgrkc4ulFD-VD4x6P63qN1Giroe7U"; // afi ekal training
+    "BO4jQA2_cu-WSdDY0HCbB9OKplPYpCRvjDwmjEPQd7K7m1bIrtjeW7FXCntUUkm2V0eAKh9AGKqmpR4-_gYSYX8"; // afi ekal Production
 
   searchForm = new FormGroup({
     findInput: new FormControl("", [Validators.required]),
@@ -69,7 +69,10 @@ export class NavbarComponent implements OnInit {
     if (userDetails) {
       const roles = userDetails["roles"];
       roles.forEach((role) => {
-        if (role.uuid === "f6de773b-277e-4ce2-9ee6-8622b8a293e8" || role.uuid === "f99470e3-82a9-43cc-b3ee-e66c249f320a") {
+        if (
+          role.uuid === "f6de773b-277e-4ce2-9ee6-8622b8a293e8" ||
+          role.uuid === "f99470e3-82a9-43cc-b3ee-e66c249f320a"
+        ) {
           this.systemAccess = true;
         }
         if (
