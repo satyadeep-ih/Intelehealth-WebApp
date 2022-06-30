@@ -30,39 +30,18 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name'| translate}}</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.name }}
-        </a>
-      </td>
+      <td mat-cell *matCellDef="let row">{{ row?.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="telephone">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Phone No'| translate}}</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.telephone === 'NA' ? ('NA' | translate) : row?.telephone }}
-        </a>
-      </td>
+      <td mat-cell *matCellDef="let row">{{ row?.telephone === 'NA' ? ('NA' | translate) : row?.telephone }}</td>
     </ng-container>
 
     <!-- Gender Column -->
     <ng-container matColumnDef="gender">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Gender'| translate}}</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.gender === 'M' ? ('Male'| translate ): ('Female'| translate) }}
-        </a>
-      </td>
+      <td mat-cell *matCellDef="let row">{{ row?.gender === 'M' ? ('Male'| translate ): ('Female'| translate) }}</td>
     </ng-container>
 
     <!-- Date OF Birth Column -->
@@ -70,12 +49,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Age'| translate}}</th>
       <td mat-cell *matCellDef="let row">
         <ng-container *ngIf="row; else elseConditon">
-          <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.age }}  {{'Years'| translate}}
-        </a>
+          {{ row?.age }}  {{'Years'| translate}}
         </ng-container>
         <ng-template #elseConditon>
           {{ hasEmptyRow() }}
@@ -87,14 +61,7 @@
     <!-- Location column -->
     <ng-container matColumnDef="location">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Location'| translate}}</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.location }}
-        </a>
-      </td>
+      <td mat-cell *matCellDef="let row">{{ row?.location }}</td>
     </ng-container>
 
     <!-- Status column -->
@@ -119,26 +86,14 @@
     <!-- Provider column -->
     <ng-container matColumnDef="provider">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Provider'| translate}}</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          id="patient-id"
-          [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
-        {{ row?.provider }}
-        </a>
-      </td>
+      <td mat-cell *matCellDef="let row">{{ row?.provider }}</td>
     </ng-container>
 
     <!-- lastSeen column -->
     <ng-container matColumnDef="lastSeen">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Last Seen'| translate}}</th>
       <td mat-cell *matCellDef="let row">
-        <a
-        id="patient-id"
-        [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
-        >
         {{ row?.lastSeen | date: "dd-MMM-yyyy, h:mm a" }}
-        </a>
       </td>
     </ng-container>
 
@@ -147,7 +102,10 @@
       *matHeaderRowDef="displayColumns"
       id="columns-sorting"
     ></tr>
-    <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns"
+      id="patient-id"
+      [routerLink]="['/visitSummary', row?.patientId, row?.visitId]"
+    ></tr>
   </table>
 
   <mat-paginator
