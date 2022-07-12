@@ -213,6 +213,14 @@ require by speaking with the patient directly.  -->
 
   <div *ngIf="show">
         <mat-card>
+          <app-weight-history (isDataPresent)="getIsDataPresent($event)"></app-weight-history>
+        </mat-card>
+        <br>
+        <mat-card>
+          <app-diet-prescrition (isDataPresent)="getIsDataPresent($event)"></app-diet-prescrition>
+        </mat-card>
+        <br>
+        <mat-card>
               <app-patient-interaction (isDataPresent)="getIsDataPresent($event)"></app-patient-interaction>
         </mat-card>
         <br>

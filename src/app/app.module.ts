@@ -42,7 +42,7 @@ import { CurrentVisitComponent } from "./component/visit-summary/current-visit/c
 import { ModalsComponent } from "./component/ayu/modals/modals.component";
 import { ConfirmDialogComponent } from "./component/visit-summary/confirm-dialog/confirm-dialog.component";
 import { ReassignSpecialityComponent } from "./component/visit-summary/reassign-speciality/reassign-speciality.component";
-
+import { WeightHistoryComponent } from "./component/visit-summary/weight-history/weight-history.component"
 // Package Import
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -79,6 +79,9 @@ import { environment } from '../environments/environment';
 import { MainComponent } from './component/main/main.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { RedirectComponent } from "./component/redirect/redirect.component";
+import { DietPrescritionComponent } from './component/visit-summary/diet-prescrition/diet-prescrition.component';
+import { FoodAllergyComponent } from './component/visit-summary/food-allergy/food-allergy.component';
+import { DietTypeComponent } from './component/visit-summary/diet-type/diet-type.component';
 
 
 
@@ -121,7 +124,11 @@ import { RedirectComponent } from "./component/redirect/redirect.component";
     MainComponent,
     ConfirmDialogComponent,
     ReassignSpecialityComponent,
-    RedirectComponent
+    RedirectComponent,
+    WeightHistoryComponent,
+    DietPrescritionComponent,
+    FoodAllergyComponent,
+    DietTypeComponent
   ],
 
   imports: [
