@@ -7,11 +7,11 @@
       <th>Temp:</th>
       <td><span *ngIf="item.temp"> {{(item.temp * 9/5) + 32 | number : '1.2-2'}} F</span></td>
       <th>Height:</th>
-      <td>{{item.height}} cm</td>
+      <td><span *ngIf="item.height">{{item.height}} cm</span></td>
       <th>Weight:</th>
-      <td>{{item.weight}} kg</td>
+      <td><span *ngIf="item.weight">{{item.weight}} kg</span></td>
       <th>BMI:</th>
-      <td>{{item.weight/((item.height/100)*(item.height/100))| number : '1.2-2'}}</td>
+      <td><span *ngIf="item.weight && item.height"></span>{{item.weight/((item.height/100)*(item.height/100))| number : '1.2-2'}}</td>
       <th>SP02:</th>
       <td><span *ngIf="item.sp02">{{item.sp02}} %</span></td>
       <th>BP:</th>
@@ -50,6 +50,14 @@
 <div *ngIf='d.length'>
   <table class="table table-responsive">
     <tr *ngFor='let item of d'>
+      <ng-container *ngIf="item.glucoseRandom">
+        <th>Glucose (Random):</th>
+        <td>{{item.glucoseRandom}}</td>
+      </ng-container>
+      <ng-container *ngIf="item.glucosePostPrandial">
+        <th>Glucose (Post-prandial):</th>
+        <td>{{item.glucosePostPrandial}}</td>
+      </ng-container>
       <ng-container *ngIf="item.glucoseAf">
         <th>Glucose (Non-Fasting):</th>
         <td>{{item.glucoseAf}}</td>
