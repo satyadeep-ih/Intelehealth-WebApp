@@ -8,10 +8,11 @@ declare var saveToStorage: any;
 
 @Component({
   selector: "app-login-page",
-  templateUrl: "./login-page.component.html",
+  templateUrl: "./login-page-new.component.html",
   styleUrls: ["./login-page.component.scss"],
 })
 export class LoginPageComponent implements OnInit {
+  // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   loginForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),

@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ngb-carousel
+        #carousel
+        [interval]="2000"
+        [pauseOnHover]="true"
+        [pauseOnFocus]="true"
+      >
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img
+              src="../../../assets/images/login/Hero1.png"
+              width="100%"
+              alt="Random first slide"
+            />
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img
+              src="../../../assets/images/login/Hero2.png"
+              width="100%"
+              alt="Random second slide"
+            />
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img
+              src="../../../assets/images/login/Hero3.png"
+              width="100%"
+              alt="Random third slide"
+            />
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    <div class="col" style="background-color: #faf9ff">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="language-div">
+          <select name="language" id="language" class="language-dropdown">
+            <option value="" selected="selected">English</option>
+            <option value="">Marathi</option>
+          </select>
+        </div>
+        <div>
+          <h3 class="login-header">Login</h3>
+          <p class="login-para">
+            Login with your provided username and password then you can choose
+            the verification method.
+          </p>
+        </div>
+
+        <div role="group" class="form-group">
+          <div>
+            <label for="examplePassword">Username</label>
+          </div>
+          <div>
+            <input
+              type="email"
+              placeholder="Enter Username..."
+              formControlName="username"
+            />
+          </div>
+        </div>
+        <div role="group" class="form-group">
+          <div>
+            <div>
+              <label for="examplePassword">Password</label>
+            </div>
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Enter password..."
+              formControlName="password"
+            />
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            class="btn-darkblue"
+            [disabled]="!loginForm.valid"
+          >
+            Next
+          </button>
+        </div>
+        <div>
+          <a href="url">Terms & Conditions</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
