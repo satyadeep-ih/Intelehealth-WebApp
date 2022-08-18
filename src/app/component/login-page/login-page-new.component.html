@@ -37,61 +37,88 @@
       </ngb-carousel>
     </div>
     <div class="col" style="background-color: #faf9ff">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="language-div">
-          <select name="language" id="language" class="language-dropdown">
-            <option value="" selected="selected">English</option>
-            <option value="">Marathi</option>
-          </select>
-        </div>
-        <div>
-          <h3 class="login-header">Login</h3>
-          <p class="login-para">
-            Login with your provided username and password then you can choose
-            the verification method.
-          </p>
-        </div>
-
-        <div role="group" class="form-group">
+      <div class="language-div">
+        <select name="language" id="language" class="language-dropdown">
+          <option value="" selected="selected">English</option>
+          <option value="">Marathi</option>
+        </select>
+      </div>
+      <div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div>
-            <label for="examplePassword">Username</label>
+            <h3 class="login-header">Login</h3>
+            <p class="login-para">
+              Login with your provided username and password then you can choose
+              the verification method.
+            </p>
           </div>
-          <div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label for="username" class="lbl-username">Username</label>
+              </div>
+              <div class="col text-right">
+                <a href="#" class="link-forgot-username">
+                  <u>Forgot username ?</u>
+                </a>
+              </div>
+            </div>
             <input
               type="email"
-              placeholder="Enter Username..."
-              formControlName="username"
+              class="form-control"
+              id="username"
+              name="username"
+              aria-describedby="emailHelp"
             />
           </div>
-        </div>
-        <div role="group" class="form-group">
-          <div>
-            <div>
-              <label for="examplePassword">Password</label>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label for="examplePassword" class="lbl-username"
+                  >Password</label
+                >
+              </div>
+              <div class="col text-right">
+                <a href="#" class="link-forgot-username">
+                  <u>Forgot password ?</u>
+                </a>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control"
+                id="examplePassword"
+                name="examplePassword"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa fa-eye"></i>
+                </span>
+              </div>
             </div>
           </div>
           <div>
-            <input
-              type="password"
-              placeholder="Enter password..."
-              formControlName="password"
-            />
+            <button
+              type="submit"
+              class="btn-darkblue btn-block"
+              [disabled]="!loginForm.valid"
+            >
+              Next
+            </button>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <div>
-          <button
-            type="submit"
-            class="btn-darkblue"
-            [disabled]="!loginForm.valid"
-          >
-            Next
-          </button>
-        </div>
-        <div>
-          <a href="url">Terms & Conditions</a>
-        </div>
-      </form>
+      <div class="fixed-bottom position-absolute text-center">
+        <p class="login-para text-center">
+          Intelehealth <a href="#"><u>Terms & Conditions</u></a>
+        </p>
+      </div>
+      <div class="fixed-bottom position-absolute text-right">
+        <button type="button" class="btn btn-info">Help</button>
+      </div>
     </div>
   </div>
 </div>
