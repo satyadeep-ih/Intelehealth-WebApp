@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
   });
-
+  showPassword: boolean = false;
   constructor(
     private sessionService: SessionService,
     private router: Router,
@@ -50,5 +50,8 @@ export class LoginPageComponent implements OnInit {
         });
       }
     });
+  }
+  showHidePassword() {
+    this.showPassword = !this.showPassword;
   }
 }
