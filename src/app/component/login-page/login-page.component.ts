@@ -16,8 +16,10 @@ export class LoginPageComponent implements OnInit {
   loginForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
+    recaptcha: new FormControl("", [Validators.required]),
   });
   showPassword: boolean = false;
+  siteKey: string = "6Lde9KIhAAAAALJTYaWvatcZX70x0tgtEKh5Wf8k";
   constructor(
     private sessionService: SessionService,
     private router: Router,

@@ -1,17 +1,10 @@
 @mixin font($weight,$size) {
-  font-family: 'DM Sans';
-  font-style: normal; 
+  font-family:var(--font-family);
+  font-style:var(--font-style); 
   font-weight:$weight;
   font-size:$size;
 }
 
-@mixin color($color) {
-  color:$color;
-}
-
-@mixin background($background) {
-  background:$background;
-}
 @mixin margintop($margintop) {
   margin-top:$margintop;
 }
@@ -26,13 +19,14 @@
 {
 @include font(700,32px);
 margin-top: 80px;
-@include color(#2E1E91);
+color: var(--color-darkBlue);
+
 }
 
 .login-para
 {
 @include font(500,16px);
-@include color(#7F7B92);
+color: var(--color-gray);
 }
 
 .language-div
@@ -50,14 +44,14 @@ gap: 4px;
 position: absolute;
 left: calc(50% - 108px/2 + 212px);
 
-@include background(#FAF9FF);
+background : var(--color-offWhite);
 /* Divider */
 
 border: 0.770833px solid rgba(178, 175, 190, 0.2);
 border-radius: 8px;
 }
 .div{
-  @include background(#ffffff);
+  background : var(--color-white);
 }
 .form{
   @include marginleft(70px);
@@ -66,30 +60,30 @@ border-radius: 8px;
 }
 .language-dropdown{
 @include font(400,16px);
-@include color(#1B163A);
-@include background(#FAF9FF);
+color: var(--color-darkestBlue);
+background : var(--color-offWhite);
 }
 
 .btn-darkblue
 {
  
 @include margintop(30px);
-@include background(#2E1E91);
+background : var(--color-darkBlue);
 border-radius: 12px;
 @include font(700,18px);
-@include color(#FFFFFF);
+color: var(--color-white);
 }
 
 .link-forgot-username
 {
 @include font(400,14px);
 text-decoration-line: underline;
-@include color(#7F7B92);
+color: var(--color-gray);
 }
 
 .lbl-username
 {
 @include font(500,14px);
 line-height: 150%;
-@include color(#1B163A);
+color: var(--color-darkestBlue);
 }
