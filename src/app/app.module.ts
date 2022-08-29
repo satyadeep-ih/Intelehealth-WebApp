@@ -96,6 +96,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { NgxCaptchaModule } from "ngx-captcha";
+import { LoginContainerComponent } from "./component/login-container/login-container.component";
+import { LoginVerificationComponent } from './component/login-verification/login-verification.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +133,8 @@ import { NgxCaptchaModule } from "ngx-captcha";
     TablesComponent,
     CurrentVisitComponent,
     ModalsComponent,
+    LoginContainerComponent,
+    LoginVerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,7 +167,7 @@ import { NgxCaptchaModule } from "ngx-captcha";
     UserIdleModule.forRoot({ idle: 900, timeout: 30, ping: 12 }),
     RouterModule.forRoot(
       [
-        { path: "", component: LoginPageComponent },
+        { path: "", component: LoginContainerComponent },
         {
           path: "home",
           component: HomepageComponent,

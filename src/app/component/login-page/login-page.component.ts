@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -12,13 +12,16 @@ declare var saveToStorage: any;
   styleUrls: ["./login-page.component.scss"],
 })
 export class LoginPageComponent implements OnInit {
+  @Output() onSucess = new EventEmitter<boolean>();
   // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   loginForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
     recaptcha: new FormControl("", [Validators.required]),
   });
+  showError: boolean = false;
   showPassword: boolean = false;
+  showCaptcha: boolean = true;
   siteKey: string = "6Lde9KIhAAAAALJTYaWvatcZX70x0tgtEKh5Wf8k";
   constructor(
     private sessionService: SessionService,
@@ -28,6 +31,7 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.showCaptcha = true;
     const isLoggedIn: boolean = this.authService.isLoggedIn();
     if (isLoggedIn) {
       this.router.navigateByUrl("/home");
@@ -40,16 +44,19 @@ export class LoginPageComponent implements OnInit {
     const base64 = btoa(string);
     this.sessionService.loginSession(base64).subscribe((response) => {
       if (response.authenticated === true) {
-        this.router.navigate(["/home"]);
+        this.onSucess.emit(true);
+        /*this.router.navigate(["/home"]);
         this.authService.sendToken(response.sessionId);
         saveToStorage("user", response.user);
         this.snackbar.open(`Welcome ${response.user.person.display}`, null, {
           duration: 4000,
-        });
+        });*/
       } else {
-        this.snackbar.open("Username & Password doesn't match", null, {
+        this.showCaptcha = false;
+        this.showError = true;
+        /* this.snackbar.open("Username & Password doesn't match", null, {
           duration: 4000,
-        });
+        });*/
       }
     });
   }
