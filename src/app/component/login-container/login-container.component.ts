@@ -17,6 +17,7 @@ export class LoginContainerComponent implements OnInit {
     password: new FormControl("", [Validators.required]),
     recaptcha: new FormControl("", [Validators.required]),
   });
+  showOTPverifictaion: boolean = false;
   showLoginverifictaion: boolean = false;
   showLogin: boolean = true;
 
@@ -35,5 +36,9 @@ export class LoginContainerComponent implements OnInit {
   onLoginSucess(isSucess: boolean) {
     this.showLoginverifictaion = isSucess;
     this.showLogin = !isSucess;
+  }
+  onVerificationSucess(isSucess: boolean) {
+    this.showOTPverifictaion = isSucess;
+    this.showLoginverifictaion = !isSucess;
   }
 }

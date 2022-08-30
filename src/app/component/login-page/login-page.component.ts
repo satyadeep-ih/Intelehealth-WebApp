@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
   });
   showError: boolean = false;
   showPassword: boolean = false;
-  showCaptcha: boolean = true;
+
   siteKey: string = "6Lde9KIhAAAAALJTYaWvatcZX70x0tgtEKh5Wf8k";
   constructor(
     private sessionService: SessionService,
@@ -31,7 +31,6 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.showCaptcha = true;
     const isLoggedIn: boolean = this.authService.isLoggedIn();
     if (isLoggedIn) {
       this.router.navigateByUrl("/home");
@@ -52,7 +51,6 @@ export class LoginPageComponent implements OnInit {
           duration: 4000,
         });*/
       } else {
-        this.showCaptcha = false;
         this.showError = true;
         /* this.snackbar.open("Username & Password doesn't match", null, {
           duration: 4000,

@@ -98,6 +98,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { NgxCaptchaModule } from "ngx-captcha";
 import { LoginContainerComponent } from "./component/login-container/login-container.component";
 import { LoginVerificationComponent } from './component/login-verification/login-verification.component';
+import { OtpVerificationComponent } from './component/otp-verification/otp-verification.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { LoginVerificationComponent } from './component/login-verification/login
     ModalsComponent,
     LoginContainerComponent,
     LoginVerificationComponent,
+    OtpVerificationComponent,
   ],
   imports: [
     BrowserModule,

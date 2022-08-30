@@ -1,76 +1,60 @@
 <div>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-    <div>
-      <h3 class="login-header">Login</h3>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="grid-container">
+    <div class="header"><h3 class="login-header">Login</h3></div>
+    <div class="para">
       <p class="login-para">
         Login with your provided username and password then you can choose the
         verification method.
       </p>
     </div>
-    <div class="form-group" role="group">
-      <div class="row">
-        <div class="col">
-          <label for="username" class="lbl-username">Username</label>
-        </div>
-        <div class="col text-right">
-          <a href="#" class="link-forgot-username"> Forgot username ? </a>
-        </div>
-      </div>
+    <div class="username">
+      <label for="username" class="lbl lbl-username">Username</label>
+      <a href="#" class="link link-forgot-username"> Forgot username ? </a>
       <input
         type="email"
-        class="form-control"
+        class="txt form-control"
         id="username"
         name="username"
         aria-describedby="emailHelp"
         formControlName="username"
       />
     </div>
-    <div class="form-group" role="group">
-      <div class="row">
-        <div class="col">
-          <label for="examplePassword" class="lbl-username">Password</label>
-        </div>
-        <div class="col text-right">
-          <a href="#" class="link-forgot-username"> Forgot password ? </a>
+    <div class="password">
+      <label for="examplePassword" class="lbl lbl-username">Password</label>
+      <a href="#" class="link link-forgot-username"> Forgot password ? </a>
+      <div class="txt">
+        <div class="password-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="password-text form-control"
+            id="examplePassword"
+            name="examplePassword"
+            formControlName="password"
+          />
+          <div class="eye-icon" (click)="showHidePassword()">
+            <span>
+              <i [class]="showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="input-group">
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          class="form-control"
-          id="examplePassword"
-          name="examplePassword"
-          formControlName="password"
-        />
-        <div class="input-group-append" (click)="showHidePassword()">
-          <span class="input-group-text">
-            <i [class]="showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div>
       <label class="error-message" *ngIf="showError"
         >Credentials provided are wrong.</label
       >
     </div>
-    <div style="position: relative" *ngIf="showCaptcha">
-      <div>
-        <label class="lbl-username"
-          >Before logging in,please confirm you are not a robot</label
-        >
-      </div>
-      <div>
-        <ngx-recaptcha2
-          #captchaElem
-          [siteKey]="siteKey"
-          formControlName="recaptcha"
-        >
-        </ngx-recaptcha2>
-      </div>
+    <div class="captcha">
+      <label class="lbl-username"
+        >Before logging in,please confirm you are not a robot</label
+      >
+      <ngx-recaptcha2
+        #captchaElem
+        [siteKey]="siteKey"
+        formControlName="recaptcha"
+      >
+      </ngx-recaptcha2>
     </div>
-    <div>
+    <div class="btnnext">
       <button
         type="submit"
         class="btn-darkblue btn-block"
@@ -80,13 +64,4 @@
       </button>
     </div>
   </form>
-</div>
-
-<div class="fixed-bottom position-absolute text-center">
-  <p class="login-para text-center">
-    Intelehealth <a href="#"><u>Terms & Conditions</u></a>
-  </p>
-</div>
-<div class="fixed-bottom position-absolute text-right">
-  <button type="button" class="btn btn-info">Help</button>
 </div>

@@ -50,7 +50,9 @@
       ></app-login-page>
       <app-login-verification
         *ngIf="showLoginverifictaion"
+        (onSucess)="onVerificationSucess($event)"
       ></app-login-verification>
+      <app-otp-verification *ngIf="showOTPverifictaion"></app-otp-verification>
 
       <div class="fixed-bottom position-absolute text-center">
         <p class="login-para text-center">
