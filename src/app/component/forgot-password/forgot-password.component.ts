@@ -15,8 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   ForgotPasswordForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
   });
-  submitted1 = false;
-  submitted = false;
+  usernameExists:boolean = false;
   constructor(
     private service: VisitService,
     private sessionService: SessionService,
@@ -30,7 +29,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
     if (!this.ForgotPasswordForm.invalid) {
       const value = this.ForgotPasswordForm.value;
       const string = `${value.username}`;
@@ -40,9 +38,8 @@ export class ForgotPasswordComponent implements OnInit {
       this.sessionService.loginSession(base64).subscribe((response) => {
         if (response.authenticated === true) {
           this.router.navigate(["/login"]);
-          console.log("HELLO INTELEHEALTH")
         } else {
-          this.submitted1 = true;
+          this.usernameExists = true;
         }
         });
     }
