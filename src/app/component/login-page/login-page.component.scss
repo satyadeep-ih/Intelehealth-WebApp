@@ -29,15 +29,17 @@
 .password-container {
   display: grid;
   grid-template-areas:
-  'col1 col1 col1'
+  'col1 col2 col3'
 }
 .password-text{
-   grid-column: span 3;
+  grid-row: 1;
+  grid-column: span 3 /-1;
 }
 .eye-icon{
-    grid-column-start: 2;
-    grid-column-end: 3;
-    z-index: 2;
+  text-align: right;
+  margin-right: 1rem;
+  grid-area: col3;
+  z-index: 2;
 }
 
 .grid-container {
